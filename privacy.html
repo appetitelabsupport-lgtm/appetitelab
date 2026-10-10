@@ -30,7 +30,7 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
 <main>
   <a href="./" aria-label="AppetiteLab home"><img class="wm" src="wordmark.svg" alt="AppetiteLab" onerror="this.replaceWith(document.createTextNode('AppetiteLab'))"></a>
   <h1>Privacy Policy</h1>
-  <p class="muted">Effective date: September 30, 2026 · Applies to the AppetiteLab iOS app and web app</p>
+  <p class="muted">Effective date: October 10, 2026 · Applies to the AppetiteLab iOS app and web app</p>
 
   <h2>The short version</h2>
   <ul>
@@ -39,6 +39,7 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
     <li>Subscriptions are processed by <b>Apple</b> and managed with <b>RevenueCat</b>. We never see your payment details.</li>
     <li>If you turn on <b>Apple Health</b> sync, the calories and water you log are written to Health on your device. If you choose Apple Health as your <b>activity source</b>, the app reads your active energy, resting energy and steps on your device only.</li>
     <li>If you connect <b>WHOOP</b>, your daily WHOOP calories, strain and steps pass through our small sign-in service to your device. We don't store them.</li>
+    <li>If you set <b>Coach AI</b> to ChatGPT and tap Allow, your coach messages and a summary of your app data are sent through our small Cloudflare service to <b>OpenAI</b> to write the reply. We don't store those conversations.</li>
     <li>We don't sell your data, show ads, or track you across other apps or websites.</li>
   </ul>
 
@@ -67,6 +68,20 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
   <h2>WHOOP (optional)</h2>
   <p>If you connect WHOOP (Settings → Activity → Connect WHOOP), you sign in on WHOOP's website and allow AppetiteLab to read your WHOOP <b>cycles</b> (daily calories burned, strain, heart-rate summary and steps). WHOOP requires a secret key for this that can't safely be put inside an app, so sign-in and data requests go through a small AppetiteLab service hosted on Cloudflare. That service only passes requests between your device and WHOOP: it does not store your WHOOP data, your WHOOP sign-in or any identifier, and it doesn't log request contents (Cloudflare may keep standard technical logs such as IP address). Your WHOOP sign-in tokens are stored on your device in the iOS Keychain, and the daily numbers are cached on your device so they can be shown offline. Tapping Disconnect deletes the tokens from your device and revokes AppetiteLab's access at WHOOP. See the <a href="https://www.whoop.com/privacy/" target="_blank" rel="noopener">WHOOP privacy policy</a>.</p>
 
+  <h2>AI Coach (optional)</h2>
+  <p>Coach tips, on-device chat and Basic coach run on your phone. Nothing in those modes is sent to us.</p>
+  <p>If you set Coach AI to ChatGPT and tap Allow, the message you send and a summary of your app data are sent to OpenAI (through a small AppetiteLab service hosted on Cloudflare) to write the reply and propose meal plans, workout plans or changes. Nothing is saved to your app until you tap Confirm. The summary can include:</p>
+  <ul>
+    <li>Your profile (name, age, sex, height, goal, phase, activity, diet style) and calorie and macro targets</li>
+    <li>Foods logged today, daily totals for recent days, saved meals and recipes</li>
+    <li>Your weight trend</li>
+    <li>Your workout plan and recent sessions</li>
+    <li>Facts you asked the coach to remember, including allergies, injuries, dislikes, schedule, equipment and preferences</li>
+    <li>Apple Health totals (active calories, resting calories, steps, sleep) if you turned Health on</li>
+    <li>Your chat message and a short recent transcript</li>
+  </ul>
+  <p>AppetiteLab does not store the conversation; our service keeps only an anonymous daily message count to enforce usage limits. This data is not sold or used for ads. OpenAI processes it under its API terms: API data is not used to train OpenAI's models and may be kept by OpenAI for up to 30 days for abuse monitoring. See the <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener">OpenAI privacy policy</a>. You can switch Coach AI to On-device or Off in Settings at any time; Off sends nothing.</p>
+
   <h2>Children</h2>
   <p>AppetiteLab is not directed to children under 13 [or the minimum age in your region], and we do not knowingly collect personal information from children.</p>
 
@@ -76,6 +91,7 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
     <li>Manage or cancel your subscription in your Apple ID settings (Settings → [your name] → Subscriptions).</li>
     <li>Turn Apple Health sync off in the app, or revoke access in the Health app.</li>
     <li>Disconnect WHOOP in Settings → Activity (this also revokes access at WHOOP), or remove AppetiteLab from your WHOOP account.</li>
+    <li>Switch Coach AI to On-device or Off in Settings to stop sending coach messages to OpenAI.</li>
     <li>Deny or revoke camera access in iOS Settings; you can still type barcodes manually.</li>
     <li>Edit or delete your profile, targets, reminders and caffeine log in the app at any time (Settings → Profile &amp; Goals, the Calendar tab, the Caffeine card).</li>
     <li>Turn reminder notifications off in iOS Settings → Notifications → AppetiteLab.</li>
