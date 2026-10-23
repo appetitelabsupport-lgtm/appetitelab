@@ -8,10 +8,9 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
 @font-face{font-family:"Jost";src:url(fonts/jost-latin.woff2) format("woff2");font-weight:200 600;font-display:swap}
-:root{--fg:#0a0a0a;--bg:#fff;--muted:#6b6b6b;--line:#e6e6e6;color-scheme:light dark}
+:root{--fg:#0a0a0a;--bg:#fff;--muted:#6b6b6b;--line:#e6e6e6;color-scheme:light}
 :root[data-theme="dark"]{--fg:#f5f5f5;--bg:#000;--muted:#9a9a9a;--line:#262626;color-scheme:dark}
 :root[data-theme="light"]{color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fg:#f5f5f5;--bg:#000;--muted:#9a9a9a;--line:#262626}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 "Jost","Futura","Avenir Next",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
 main{max-width:680px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(48px + env(safe-area-inset-bottom,0px))}
@@ -24,28 +23,39 @@ a{color:inherit;text-underline-offset:3px}
 .wm{width:170px;display:block}
 hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
 </style>
-<script>try { var t = (JSON.parse(localStorage.getItem('ct.settings.v1')) || {}).theme; if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<script>
+try {
+  var raw = localStorage.getItem('ct.settings.v1');
+  var s = raw ? JSON.parse(raw) : null;
+  var t = 'dark';
+  if (s && s.theme === 'system') {
+    t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    s.theme = t;
+    localStorage.setItem('ct.settings.v1', JSON.stringify(s));
+  } else if (s && (s.theme === 'light' || s.theme === 'dark')) t = s.theme;
+  document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
 </head>
 <body>
 <main>
   <a href="./" aria-label="AppetiteLab home"><img class="wm" src="wordmark.svg" alt="AppetiteLab" onerror="this.replaceWith(document.createTextNode('AppetiteLab'))"></a>
   <h1>Privacy Policy</h1>
-  <p class="muted">Effective date: October 10, 2026 · Applies to the AppetiteLab iOS app and web app</p>
+  <p class="muted">Effective date: October 23, 2026 · Applies to the AppetiteLab iOS app and web app</p>
 
   <h2>The short version</h2>
   <ul>
-    <li>Your food log (including custom drinks, drink add-ons and food modifications), profile and targets, reminders, caffeine log and settings are stored <b>only on your device</b>. We don't have accounts or servers that receive your diary.</li>
-    <li>When you scan or type a barcode, the barcode number is sent to <b>Open Food Facts</b> to look up the product. When you search for a food, the words you type are sent to <b>USDA FoodData Central</b> and <b>Open Food Facts</b> to find matches.</li>
+    <li>Your food log (including custom drinks, drink add-ons and food modifications), saved meals, weight log, profile and targets, reminders, caffeine log and settings are stored <b>only on your device</b>. We don't have accounts or servers that receive your diary.</li>
+    <li>When you scan or type a barcode, the barcode number is sent to <b>Open Food Facts</b> and <b>FatSecret</b> to look up the product. When you search for a food, the words you type are sent to <b>USDA FoodData Central</b>, <b>Open Food Facts</b> and <b>FatSecret</b> to find matches. Camera images never leave your device.</li>
     <li>Subscriptions are processed by <b>Apple</b> and managed with <b>RevenueCat</b>. We never see your payment details.</li>
-    <li>If you turn on <b>Apple Health</b> sync, the calories and water you log are written to Health on your device. If you choose Apple Health as your <b>activity source</b>, the app reads your active energy, resting energy and steps on your device only.</li>
-    <li>If you connect <b>WHOOP</b>, your daily WHOOP calories, strain and steps pass through our small sign-in service to your device. We don't store them.</li>
-    <li>If you set <b>Coach AI</b> to ChatGPT and tap Allow, your coach messages and a summary of your app data are sent through our small Cloudflare service to <b>OpenAI</b> to write the reply. We don't store those conversations.</li>
+    <li>If you turn on <b>Apple Health</b> sync, the calories and water you log are written to Health on your device. If you choose Apple Health as your <b>activity source</b>, the app reads your active energy, resting energy and steps on your device only. If you turn on weight sync, your weigh-ins are written to and read from Health (Body Mass) on your device. <b>Apple Health data stays on your device and is never sent to us or used for advertising. It is sent to OpenAI only if you turn on “Share Apple Health with coach” (off by default); see “Coach (optional)” below.</b></li>
+    <li>If you turn on <b>AI Coach</b> and tap Allow, your coach messages and a summary of your app data (Apple Health data only if you separately opt in) are sent to <b>OpenAI</b> to write replies. See “Coach (optional)” below.</li>
     <li>We don't sell your data, show ads, or track you across other apps or websites.</li>
   </ul>
 
   <h2>Data stored on your device</h2>
   <p>Foods you log (names, calories, servings, optional protein/carbs/fat and other nutrients, meal and date), water you log, foods you save to My Foods, your daily goals, your list of recent foods, and cached product information are saved in the app's local storage on your device. This data is not uploaded to us. It is removed if you delete the app, use "Erase all data" in Settings, or clear the app's data. You can export a copy at any time from Settings. Depending on your device settings, your device backups (for example iCloud Backup) may include this data; those backups are controlled by you and Apple.</p>
-  <p>The same applies to the profile you enter to calculate your targets (units, sex, age, height, current and goal weight, goal, activity level, diet style and any targets you set yourself), the reminders you add in the Calendar (their names, optional amounts and units, schedule, notes, and whether you marked them taken or skipped), and the caffeine you log (amounts, drink names, your quick-add items and your limit). This information is used only on your device to show your targets, calendar and totals. It is not sent to us, to RevenueCat, to Apple Health or to anyone else. It is included in Export and removed by "Erase all data". AppetiteLab only shows the reminder details you type; it doesn't give medical or dosing advice.</p>
+  <p>The same applies to the profile you enter to calculate your targets (units, sex, age, height, current and goal weight, goal, activity level, diet style and any targets you set yourself), the reminders you add in the Calendar (their names, optional amounts and units, schedule, notes, and whether you marked them taken or skipped), the caffeine you log (amounts, drink names, your quick-add items and your limit), the weigh-ins you enter (date and weight), your saved meals, and the settings for quick log, portion sizes, smart reminders and the weekly recap (including the typical meal times the app works out from your own log to time its reminders). This information is used only on your device to show your targets, calendar and totals. It is not sent to us, to RevenueCat, to Apple Health or to anyone else. It is included in Export and removed by "Erase all data". AppetiteLab only shows the reminder details you type; it doesn't give medical or dosing advice.</p>
 
   <h2>Barcode lookups: Open Food Facts</h2>
   <p>To identify a product, the app sends the barcode number you scanned or typed to the free, open database <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener">Open Food Facts</a> (operated by the non-profit Open Food Facts association). Like any web request, this includes your device's IP address and basic technical information. Product photos are loaded from Open Food Facts' image servers. No food diary data is sent. See the <a href="https://world.openfoodfacts.org/privacy" target="_blank" rel="noopener">Open Food Facts privacy policy</a>.</p>
@@ -53,34 +63,30 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
   <h2>Food search: USDA FoodData Central and Open Food Facts</h2>
   <p>When you type in the food search box, the search words are sent to <a href="https://fdc.nal.usda.gov" target="_blank" rel="noopener">USDA FoodData Central</a> (api.nal.usda.gov, run by the U.S. Department of Agriculture through api.data.gov) and to <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener">Open Food Facts</a> (world.openfoodfacts.org) to fetch matching foods. These requests contain only the search words, an app key that identifies the app (not you), and, like any web request, your device's IP address and basic technical information. No account, food diary or other personal data is sent. Recent results are kept briefly in memory on your device. See the <a href="https://www.usda.gov/privacy-policy" target="_blank" rel="noopener">USDA privacy policy</a> and <a href="https://api.data.gov/about/" target="_blank" rel="noopener">api.data.gov</a>. Nutrition for restaurant menu items (for example McDonald's and Smoothie King) is built into the app from the chains' published nutrition information, so searching them sends nothing extra.</p>
 
+  <h2>Food search and barcodes: FatSecret</h2>
+  <p>Food searches and barcode numbers are also sent to <a href="https://www.fatsecret.com" target="_blank" rel="noopener">FatSecret</a> (fatsecret.com) through a small AppetiteLab service hosted on Cloudflare, which keeps the FatSecret key off your phone. The request contains only the search words or barcode number; FatSecret sees our service, not your device or IP address. Our service doesn't log or keep a record of who searched. No account, food diary or other personal data is sent. See the <a href="https://www.fatsecret.com/Default.aspx?pa=privacyp" target="_blank" rel="noopener">FatSecret privacy policy</a>. Food data is powered by fatsecret.</p>
+
   <h2>Notifications</h2>
-  <p>If you allow notifications, reminder notifications are scheduled on your device by iOS (local notifications) and show the reminder name, amount and notes you entered. No push service or server is involved. In the web version, reminders are shown by your browser only while AppetiteLab is open. You can turn notifications off any time in iOS Settings → Notifications → AppetiteLab (or your browser's site settings).</p>
+  <p>If you allow notifications, reminder notifications are scheduled on your device by iOS (local notifications) and show the reminder name, amount and notes you entered. Optional smart meal reminders, the weigh-in reminder and the weekly recap reminder (all off by default) are scheduled the same way, on your device. No push service or server is involved. In the web version, reminders are shown by your browser only while AppetiteLab is open. You can turn notifications off any time in iOS Settings → Notifications → AppetiteLab (or your browser's site settings).</p>
   <h2>Camera</h2>
-  <p>The camera is used only to read barcodes while the scanner is open. Images are processed on your device and are not stored or uploaded.</p>
+  <p>The camera is used only to read barcodes while the scanner is open. Images are processed on your device and are not stored, uploaded, or sent to any AI service. Progress photos you take or pick are saved only on your device.</p>
+  <h2>Quick log and dictation</h2>
+  <p>Quick log turns what you type (for example "two eggs, toast and a coffee") into foods on your device; the food names are then looked up like a normal food search (see above). In the iOS app, dictation uses the iPhone keyboard's microphone button, which is Apple's keyboard dictation and is covered by Apple's privacy policy; AppetiteLab does not record audio. In the web version, the microphone button uses your browser's speech recognition, which some browsers (for example Chrome) process on the browser maker's servers; it is only used while the microphone button is on, and you can always type instead.</p>
 
   <h2>Subscriptions: Apple and RevenueCat</h2>
   <p>AppetiteLab Pro is an auto-renewing subscription purchased through your Apple ID. Apple processes the payment; we never receive your card or billing details. We use <a href="https://www.revenuecat.com" target="_blank" rel="noopener">RevenueCat</a> to check whether your subscription is active. RevenueCat receives an anonymous app user ID generated on your device (shown in the app as your "account code", for example AL-7K4Q-M2XD, so you can share it if someone gives you free access; it contains nothing about you), your purchase and subscription history (such as product, dates, price and trial status) and basic device information (such as app version, OS version, country/currency). This is used only to provide and restore your subscription. See the <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat privacy policy</a> and <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's privacy policy</a>.</p>
 
   <h2>Apple Health (optional)</h2>
   <p>If you turn on "Sync calories &amp; water to Health" (Settings → Apple Health) and grant permission, the app writes the calories (dietary energy) of each food you log, and the water (dietary water) you log, to the Health app on your device.</p>
-  <p>If you choose Apple Health as your activity source (Settings → Activity) and grant permission, the app reads your daily <b>active energy</b>, <b>resting energy</b> and <b>step count</b> to show calories burned and, if you turn it on, to adjust your calorie goal. This happens on your device; Health data is not sent to us or anyone else, is never used for advertising, and you can revoke access at any time in the Health app or iOS Settings.</p>
+  <p>If you turn on "Sync with Apple Health" on the Weight screen and grant permission, the app writes the weigh-ins you enter to Health as <b>Body Mass</b> and reads Body Mass from Health to fill in days you didn't enter in AppetiteLab.</p>
+  <p>If you choose Apple Health as your activity source (Settings → Activity) and grant permission, the app reads your daily <b>active energy</b>, <b>resting energy</b> and <b>step count</b> to show calories burned and, if you turn it on, to adjust your calorie goal. This happens on your device; Health data is not sent to us, is sent to the AI Coach (OpenAI) only if you turn on Share Apple Health with coach, is never used for advertising, and you can revoke access at any time in the Health app or iOS Settings.</p>
 
-  <h2>WHOOP (optional)</h2>
-  <p>If you connect WHOOP (Settings → Activity → Connect WHOOP), you sign in on WHOOP's website and allow AppetiteLab to read your WHOOP <b>cycles</b> (daily calories burned, strain, heart-rate summary and steps). WHOOP requires a secret key for this that can't safely be put inside an app, so sign-in and data requests go through a small AppetiteLab service hosted on Cloudflare. That service only passes requests between your device and WHOOP: it does not store your WHOOP data, your WHOOP sign-in or any identifier, and it doesn't log request contents (Cloudflare may keep standard technical logs such as IP address). Your WHOOP sign-in tokens are stored on your device in the iOS Keychain, and the daily numbers are cached on your device so they can be shown offline. Tapping Disconnect deletes the tokens from your device and revokes AppetiteLab's access at WHOOP. See the <a href="https://www.whoop.com/privacy/" target="_blank" rel="noopener">WHOOP privacy policy</a>.</p>
+  <h2>Cardio (optional)</h2>
+  <p>If you start a run, walk, or ride, AppetiteLab uses your location to measure distance, pace or speed, elevation, and the route on a map. While that session is running, location can keep updating if you leave the app or lock the screen, and it stops when the session ends. You can also connect a Bluetooth heart-rate strap, or read a recent heart rate from Apple Health. The recorded route, GPS points, and heart-rate samples stay on your device. They are not sent to us. Map tiles are loaded from OpenStreetMap only to draw the map. If you turn on Snap to roads while planning a route, each new segment sends only its two endpoints to our routing service so the line can follow paths. Those two points are not stored. The snapped line is saved on your device. Turning Snap off, or planning while offline, keeps the segment as a straight line on the device.</p>
 
-  <h2>AI Coach (optional)</h2>
+  <h2>Coach (optional)</h2>
   <p>Coach tips, on-device chat and Basic coach run on your phone. Nothing in those modes is sent to us.</p>
-  <p>If you set Coach AI to ChatGPT and tap Allow, the message you send and a summary of your app data are sent to OpenAI (through a small AppetiteLab service hosted on Cloudflare) to write the reply and propose meal plans, workout plans or changes. Nothing is saved to your app until you tap Confirm. The summary can include:</p>
-  <ul>
-    <li>Your profile (name, age, sex, height, goal, phase, activity, diet style) and calorie and macro targets</li>
-    <li>Foods logged today, daily totals for recent days, saved meals and recipes</li>
-    <li>Your weight trend</li>
-    <li>Your workout plan and recent sessions</li>
-    <li>Facts you asked the coach to remember, including allergies, injuries, dislikes, schedule, equipment and preferences</li>
-    <li>Apple Health totals (active calories, resting calories, steps, sleep) if you turned Health on</li>
-    <li>Your chat message and a short recent transcript</li>
-  </ul>
-  <p>AppetiteLab does not store the conversation; our service keeps only an anonymous daily message count to enforce usage limits. This data is not sold or used for ads. OpenAI processes it under its API terms: API data is not used to train OpenAI's models and may be kept by OpenAI for up to 30 days for abuse monitoring. See the <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener">OpenAI privacy policy</a>. You can switch Coach AI to On-device or Off in Settings at any time; Off sends nothing.</p>
+  <p>If you set Coach AI to AI Coach and tap Allow, the message you send and a summary of your app data are sent to <a href="https://openai.com" target="_blank" rel="noopener">OpenAI</a> to write the reply. That summary can include your profile (name, age, sex, height, goal, phase, activity, diet style), calorie and macro targets, foods logged today and daily totals for recent days, your weight trend, weigh-ins you entered yourself, your workout plan, recent sessions and personal records, saved meals, recipes and recent foods, recent coach chat, and facts you asked the coach to remember (including allergies and injuries). <b>Apple Health data is not included unless you turn on “Share Apple Health with coach” in Settings → Coach (off by default) and accept its separate prompt. Then the summary also includes daily sleep, steps, active energy and resting heart rate from the last 14 days, used only to write coach replies. Turn it off anytime to stop sending it.</b> These are sent through a small AppetiteLab service hosted on Cloudflare, which keeps only an anonymous daily message count to enforce usage limits. AppetiteLab does not store that conversation. OpenAI’s API is not used to train their models. You can switch Coach AI to On-device or Off in Settings at any time. Off sends nothing. See the <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI privacy policy</a>.</p>
 
   <h2>Children</h2>
   <p>AppetiteLab is not directed to children under 13 [or the minimum age in your region], and we do not knowingly collect personal information from children.</p>
@@ -90,10 +96,10 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
     <li>Export or erase your data from Settings in the app.</li>
     <li>Manage or cancel your subscription in your Apple ID settings (Settings → [your name] → Subscriptions).</li>
     <li>Turn Apple Health sync off in the app, or revoke access in the Health app.</li>
-    <li>Disconnect WHOOP in Settings → Activity (this also revokes access at WHOOP), or remove AppetiteLab from your WHOOP account.</li>
-    <li>Switch Coach AI to On-device or Off in Settings to stop sending coach messages to OpenAI.</li>
+    <li>Switch Coach AI to On-device or Off in Settings to stop sending anything to OpenAI.</li>
+    <li>Turn off “Share Apple Health with coach” in Settings → Coach to stop sending Apple Health data to OpenAI.</li>
     <li>Deny or revoke camera access in iOS Settings; you can still type barcodes manually.</li>
-    <li>Edit or delete your profile, targets, reminders and caffeine log in the app at any time (Settings → Profile &amp; Goals, the Calendar tab, the Caffeine card).</li>
+    <li>Edit or delete your profile, targets, reminders, caffeine log, weigh-ins and saved meals in the app at any time (Settings → Profile &amp; Goals, the Calendar tab, the Caffeine card, the Weight card, Repeat &amp; saved).</li>
     <li>Turn reminder notifications off in iOS Settings → Notifications → AppetiteLab.</li>
   </ul>
 
@@ -102,8 +108,13 @@ hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
 
   <h2>Contact</h2>
   <p>AppetiteLab<br>Questions about privacy or this policy: <a href="mailto:appetitelabsupport@gmail.com">appetitelabsupport@gmail.com</a></p>
+  <h2>Version 1.1</h2>
+  <p>Recipes, meal plans, grocery lists and workout logs are stored only on your device, the same way as your food log. They are included when you export and removed by “Erase all data”.</p>
+  <p>Coach tips are generated on your device from your own log. On-device coach chat, when your iPhone can run it, uses Apple’s on-device model; that prompt stays on the phone. Only AI Coach (above, after you tap Allow) sends anything to OpenAI.</p>
+  <p>Coaching is not medical advice.</p>
   <hr>
   <p class="muted">AppetiteLab · <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Terms of Use (Apple Standard EULA)</a></p>
 </main>
+
 </body>
 </html>
