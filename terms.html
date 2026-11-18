@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terms · AppetiteLab</title>
+<meta name="robots" content="index,follow">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Jost";src:url(fonts/jost-latin.woff2) format("woff2");font-weight:200 600;font-display:swap}
+:root{--fg:#0a0a0a;--bg:#fff;--muted:#6b6b6b;--line:#e6e6e6;color-scheme:light}
+:root[data-theme="dark"]{--fg:#f5f5f5;--bg:#000;--muted:#9a9a9a;--line:#262626;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 "Jost","Futura","Avenir Next",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:680px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(48px + env(safe-area-inset-bottom,0px))}
+h1{font-weight:300;font-size:34px;letter-spacing:-.01em;margin:22px 0 4px}
+h2{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.18em;margin:34px 0 8px}
+p,li{color:var(--fg)} .muted{color:var(--muted);font-size:14px}
+ul{padding-left:20px} li{margin:4px 0}
+a{color:inherit;text-underline-offset:3px}
+.wm{width:170px;display:block}
+hr{border:0;border-top:1px solid var(--line);margin:34px 0 18px}
+</style>
+<script>
+try {
+  var raw = localStorage.getItem('ct.settings.v1');
+  var s = raw ? JSON.parse(raw) : null;
+  var t = 'dark';
+  if (s && s.theme === 'system') {
+    t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else if (s && (s.theme === 'light' || s.theme === 'dark')) t = s.theme;
+  document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+</head>
+<body>
+<main>
+  <a href="./" aria-label="AppetiteLab home"><img class="wm" src="wordmark.svg" alt="AppetiteLab" onerror="this.replaceWith(document.createTextNode('AppetiteLab'))"></a>
+  <h1>Terms</h1>
+  <p class="muted">Effective date: November 18, 2026 · AppetiteLab iOS app and web app</p>
+  <p>These terms describe how AppetiteLab may be used. The license for the iOS app is Apple’s standard Licensed Application End User License Agreement: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple Standard EULA</a>. If these terms and the Apple EULA differ on a point Apple’s EULA covers, the EULA controls for the iOS app.</p>
+
+  <h2>A tracker, not medical advice</h2>
+  <p>AppetiteLab logs food, training, and — if you choose — compounds and lab values you enter. It is for tracking and education. It is <b>not medical advice</b>, not a diagnosis, and not a treatment. It does not claim to treat, cure, or prevent any disease. Dose math, saturation charts, and research summaries are estimates or short educational notes. They are not instructions to take, change, or stop any substance. Talk to a qualified physician before any health decision.</p>
+
+  <h2>No sourcing or endorsement</h2>
+  <p>AppetiteLab does not sell, ship, advertise, or endorse compounds, drugs, or supplements, and it does not help you buy or obtain them. Nothing in the compound library, research pages, or a request you send us is an offer to supply a product. Some compounds in the library are controlled substances where you live. You are responsible for following the law that applies to you.</p>
+
+  <h2>Protocol is 18+</h2>
+  <p>The Protocol tab is for adults. The first time you open it you must confirm that you are 18 years of age or older. It is not for minors.</p>
+
+  <h2>Subscriptions</h2>
+  <p>AppetiteLab Pro and Pro+ are optional auto-renewing subscriptions sold by Apple through your Apple ID. The price, billing period, and any free trial are shown in the app before you confirm. Pro may include a free trial; Pro+ does not. Payment is charged to your Apple ID. The subscription renews unless you cancel at least 24 hours before the end of the current period in Settings → [your name] → Subscriptions. Deleting the app, or using Erase all data, does not cancel a subscription. Restore Purchases is available on the purchase screen. We do not receive your card number.</p>
+
+  <h2>Your data</h2>
+  <p>Food logs, workouts, Protocol dose logs, and saved bloodwork stay on your device. There is no AppetiteLab account with an email and password. Settings → Erase all data deletes the data stored in the app on this device, including Protocol logs, bloodwork, the 18+ acknowledgement, and AI-scan consent. How photos and optional AI features are processed is described in the <a href="privacy.html">Privacy Policy</a>.</p>
+
+  <h2>Contact</h2>
+  <p>AppetiteLab<br><a href="mailto:appetitelabsupport@gmail.com">appetitelabsupport@gmail.com</a></p>
+  <hr>
+  <p class="muted"><a href="privacy.html">Privacy Policy</a> · <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple Standard EULA</a></p>
+</main>
+</body>
+</html>
